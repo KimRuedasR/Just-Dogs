@@ -59,9 +59,9 @@ npm install
 
 ## 3. Firebase Setup 🔥
 
-For Firebase integration, create a `.env` file in your project root and add your Firebase configuration keys in the format `EXPO_PUBLIC_API_FIREBASE_API_KEY="your_key"`, etc.
-In your app, access these keys via `process.env.EXPO_PUBLIC_API_FIREBASE_API_KEY` and similar for other Firebase settings.
-Ensure `.env` is added to `.gitignore` to keep your keys secure.
+- For Firebase integration, create a `.env` file in your project root and add your Firebase configuration keys in the format `EXPO_PUBLIC_API_FIREBASE_API_KEY="your_key"`, etc.
+- In your app, access these keys via `process.env.EXPO_PUBLIC_API_FIREBASE_API_KEY` and similar for other Firebase settings.
+- Ensure `.env` is added to `.gitignore` to keep your keys secure.
 
 ### 4. Start the App with Expo 🌟
 
@@ -75,10 +75,10 @@ npm start
 
 The Just Dogs app is currently in its initial development phase. The foundational structure of the React Native project has been established, and key components are being implemented.
 
-    -Authentication System: The app now includes basic authentication screens for user registration and login, using Firebase for backend services.
-    -Firebase Integration: Firebase has been integrated for authentication and data storage.
-    -Navigation: Basic navigation between the authentication screens has been implemented using React Navigation.
-    -UI Development: The user interface for the landing, login, and registration screens is under development.
+- Authentication System: The app now includes basic authentication screens for user registration and login, using Firebase for backend services.
+- Firebase Integration: Firebase has been integrated for authentication and data storage.
+- Navigation: Basic navigation between the authentication screens has been implemented using React Navigation.
+- UI Development: The user interface for the landing, login, and registration screens is under development.
 
 The project is actively being developed, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.
 
