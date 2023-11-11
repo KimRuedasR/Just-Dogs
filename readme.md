@@ -73,7 +73,14 @@ npm start
 
 ## 📈🐶 Project Status
 
-Initial structure of React Native project.
+The Just Dogs app is currently in its initial development phase. The foundational structure of the React Native project has been established, and key components are being implemented.
+
+    -Authentication System: The app now includes basic authentication screens for user registration and login, using Firebase for backend services.
+    -Firebase Integration: Firebase has been integrated for authentication and data storage.
+    -Navigation: Basic navigation between the authentication screens has been implemented using React Navigation.
+    -UI Development: The user interface for the landing, login, and registration screens is under development.
+
+The project is actively being developed, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.
 
 ## 👥🐕‍🦺 Contributing
 
