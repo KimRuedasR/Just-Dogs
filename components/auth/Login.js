@@ -7,12 +7,11 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 // Register component class
-export class Register extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
       email: "",
       password: "",
     };
@@ -22,10 +21,10 @@ export class Register extends Component {
 
   // Method for sign up
   onSignUp() {
-    const { name, email, password } = this.state;
+    const { email, password } = this.state;
     firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       // User created successfully, update the display name
       .then((result) => {
         console.log(result);
@@ -39,10 +38,6 @@ export class Register extends Component {
     return (
       <View>
         <TextInput
-          placeholder="Nombre"
-          onChangeText={(name) => this.setState({ name })}
-        />
-        <TextInput
           placeholder="Correo"
           onChangeText={(email) => this.setState({ email })}
         />
@@ -51,9 +46,9 @@ export class Register extends Component {
           secureTextEntry={true}
           onChangeText={(password) => this.setState({ password })}
         />
-        <Button onPress={() => this.onSignUp()} title="Registrarse" />
+        <Button onPress={() => this.onSignUp()} title="Iniciar sesión" />
       </View>
     );
   }
 }
-export default Register;
+export default Login;

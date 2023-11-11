@@ -7,10 +7,13 @@ export default function Landing({ navigation }) {
     // View container
     <View style={{ flex: 1, justifyContent: "center" }}>
       <Button
-        title="Register"
+        title="Registrarse"
         onPress={() => navigation.navigate("Register")}
       />
-      <Button title="Login" onPress={() => navigation.navigate("Login")} />
+      <Button
+        title="Iniciar sesión"
+        onPress={() => navigation.navigate("Login")}
+      />
     </View>
   );
 }
