@@ -1,13 +1,35 @@
 {
-  "name": "just-dogs",
+  "name": "Just Dogs",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "description": "A social network mobile application only for dog pictures and dog lovers.",
+  "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KimRuedasR/HR-Express-API.git"
+  },
+  "keywords": [
+    "react",
+    "reactnative",
+    "expo",
+    "nodejs",
+    "api",
+    "firebase",
+    "socialmedia",
+    "socialnetwork",
+    "dogs"
+  ],
+  "author": "KimRR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KimRuedasR/Just-Dogs"
+  },
+  "homepage": "https://github.com/KimRuedasR/Just-Dogs#readme",
   "dependencies": {
     "expo": "~49.0.15",
     "expo-status-bar": "~1.6.0",
