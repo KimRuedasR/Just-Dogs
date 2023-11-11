@@ -1,7 +1,7 @@
 {
   "name": "Just Dogs",
-  "version": "1.0.0",
-  "description": "A social network mobile application only for dog pictures and dog lovers.",
+  "version": "1.1.0",
+  "description": "Mobile platform and social netowrk dedicated to dog enthusiasts for sharing and appreciating humanity's best friend.",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
