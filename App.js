@@ -11,13 +11,13 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "******",
-  authDomain: "******",
-  projectId: "******",
-  storageBucket: "******",
-  messagingSenderId: "******",
-  appId: "******",
-  measurementId: "******",
+  apiKey: process.env.EXPO_PUBLIC_API_FIREBASE_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_API_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_API_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_API_FIREBASE_STORAGE_BUCKE,
+  messagingSenderId: process.env.EXPO_PUBLIC_API_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_API_FIREBASE_APP_ID,
+  measurementId: process.env.EXPO_PUBLIC_API_FIREBASE_MEASUREMENT_ID,
 };
 
 if (firebase.apps.length === 0) {
