@@ -26,8 +26,16 @@ export class Register extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      // User created successfully, update the display name
+      // User created successfully
       .then((result) => {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(firebase.auth().currentUser.uid)
+          .set({
+            name,
+            email,
+          });
         console.log(result);
       })
       // Error log
@@ -35,6 +43,7 @@ export class Register extends Component {
         console.log(error);
       });
   }
+  // Registration form
   render() {
     return (
       <View>

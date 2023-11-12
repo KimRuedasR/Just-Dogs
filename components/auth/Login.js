@@ -19,7 +19,7 @@ export class Login extends Component {
     this.onSignUp = this.onSignUp.bind(this);
   }
 
-  // Method for sign up
+  // Method for login
   onSignUp() {
     const { email, password } = this.state;
     firebase
@@ -34,6 +34,7 @@ export class Login extends Component {
         console.log(error);
       });
   }
+  // Login form
   render() {
     return (
       <View>

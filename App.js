@@ -6,9 +6,14 @@ AppRegistry.registerComponent("main", () => App);
 // Modules
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer from "./redux/reducers";
+import thunk from "redux-thunk";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+
 // Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_API_FIREBASE_API_KEY,
@@ -19,7 +24,7 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_API_FIREBASE_APP_ID,
   measurementId: process.env.EXPO_PUBLIC_API_FIREBASE_MEASUREMENT_ID,
 };
-
+// Initialize firebase
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -27,10 +32,12 @@ if (firebase.apps.length === 0) {
 // Components
 import LandingScreen from "./components/auth/Landing";
 import RegisterScreen from "./components/auth/Register";
+import MainScreen from "./components/Main.js";
 
-// Main App component
+const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
 
+// Main App component
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -38,6 +45,7 @@ export class App extends Component {
       loaded: false,
     };
   }
+  // Authentication state changes
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
@@ -49,6 +57,7 @@ export class App extends Component {
   }
   render() {
     const { loggedIn, loaded } = this.state;
+    // Loading screen
     if (!loaded) {
       return (
         <View style={{ flex: 1, justifyContent: "center" }}>
@@ -56,10 +65,9 @@ export class App extends Component {
         </View>
       );
     }
-
+    // Navigation container
     if (!loggedIn) {
       return (
-        // Navigation container
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Landing">
             <Stack.Screen
@@ -74,9 +82,9 @@ export class App extends Component {
     }
 
     return (
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <Text>Sesión Iniciada...</Text>
-      </View>
+      <Provider store={store}>
+        <MainScreen />
+      </Provider>
     );
   }
 }
