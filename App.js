@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { AppRegistry, View, Text } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 AppRegistry.registerComponent("main", () => App);
 
 // Modules
@@ -30,12 +31,14 @@ if (firebase.apps.length === 0) {
 }
 
 // Components
+import MainScreen from "./components/Main.js";
 import LandingScreen from "./components/auth/Landing";
 import RegisterScreen from "./components/auth/Register";
-import MainScreen from "./components/Main.js";
+import LoginScreen from "./components/auth/Login";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 // Main App component
 export class App extends Component {
@@ -76,6 +79,7 @@ export class App extends Component {
               options={{ headerShown: false }}
             />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       );
@@ -83,7 +87,15 @@ export class App extends Component {
 
     return (
       <Provider store={store}>
-        <MainScreen />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen
+              name="Main"
+              component={MainScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
     );
   }
