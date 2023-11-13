@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { AppRegistry, View, Text } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Font from "expo-font";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 AppRegistry.registerComponent("main", () => App);
@@ -22,7 +21,7 @@ const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_API_FIREBASE_API_KEY,
   authDomain: process.env.EXPO_PUBLIC_API_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.EXPO_PUBLIC_API_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.EXPO_PUBLIC_API_FIREBASE_STORAGE_BUCKE,
+  storageBucket: process.env.EXPO_PUBLIC_API_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.EXPO_PUBLIC_API_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.EXPO_PUBLIC_API_FIREBASE_APP_ID,
   measurementId: process.env.EXPO_PUBLIC_API_FIREBASE_MEASUREMENT_ID,
@@ -38,10 +37,10 @@ import LandingScreen from "./components/auth/Landing";
 import RegisterScreen from "./components/auth/Register";
 import LoginScreen from "./components/auth/Login";
 import AddScreen from "./components/main/Add";
+import SaveScreen from "./components/main/Save";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 // Main App component
 export class App extends Component {
@@ -99,17 +98,29 @@ export class App extends Component {
         </NavigationContainer>
       );
     }
-    // Main screen
+    // Main navigation container
     return (
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
+            {/*  Main screen */}
             <Stack.Screen
               name="Main"
               component={MainScreen}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="Add" component={AddScreen} />
+            {/* Add/camera screen */}
+            <Stack.Screen
+              name="Add"
+              component={AddScreen}
+              navigation={this.props.navigation}
+            />
+            {/*  Save/post screen */}
+            <Stack.Screen
+              name="Save"
+              component={SaveScreen}
+              navigation={this.props.navigation}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

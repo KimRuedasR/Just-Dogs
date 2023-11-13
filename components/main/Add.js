@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 
-export default function Add() {
+export default function Add({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
@@ -38,7 +38,7 @@ export default function Add() {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
   };
@@ -61,7 +61,7 @@ export default function Add() {
           ratio={"1:1"}
         />
       </View>
-
+      {/* // Buttons for image upload */}
       <Button
         title="Girar Imagen"
         onPress={() =>
@@ -74,6 +74,10 @@ export default function Add() {
       />
       <Button title="Tomar Foto" onPress={takePicture} />
       <Button title="Elegir Imagen de Galería" onPress={pickImage} />
+      <Button
+        title="Utilizar imagen"
+        onPress={() => navigation.navigate("Save", { image })}
+      />
       {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
       )}

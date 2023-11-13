@@ -25,6 +25,7 @@ export class Main extends Component {
     return (
       // Bottom navigator
       <Tab.Navigator initialRouteName="Feed" labeled={false}>
+        {/* // Feed tab */}
         <Tab.Screen
           name="Feed"
           component={FeedScreen}
@@ -34,6 +35,7 @@ export class Main extends Component {
             ),
           }}
         />
+        {/* // Add/camera tab */}
         <Tab.Screen
           name="AddContainer"
           component={EmptyScreen}
@@ -49,6 +51,7 @@ export class Main extends Component {
             ),
           }}
         />
+        {/* // Profile tab */}
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
