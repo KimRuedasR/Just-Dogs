@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { AppRegistry, View, Text } from "react-native";
-AppRegistry.registerComponent("main", () => App);
 
 // Modules
 import { NavigationContainer } from "@react-navigation/native";
