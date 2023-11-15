@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { AppRegistry, View, Text } from "react-native";
-import * as Font from "expo-font";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-AppRegistry.registerComponent("main", () => App);
 
 // Modules
 import { NavigationContainer } from "@react-navigation/native";
@@ -47,13 +44,11 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fontsLoaded: false,
       loaded: false,
     };
   }
   // Authentication state changes
-  async componentDidMount() {
-    await this.loadFonts();
+  componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.setState({ loggedIn: false, loaded: true });
@@ -62,20 +57,11 @@ export class App extends Component {
       }
     });
   }
-  // Icon and font loading
-  async loadFonts() {
-    await Font.loadAsync({
-      //MaterialCommunityIcons.font,
-      MaterialCommunityIcons: require("@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"),
-    });
-
-    this.setState({ fontsLoaded: true });
-  }
 
   render() {
-    const { loggedIn, loaded, fontsLoaded } = this.state;
+    const { loggedIn, loaded } = this.state;
     // Loading screen
-    if (!loaded || !fontsLoaded) {
+    if (!loaded) {
       return (
         <View style={{ flex: 1, justifyContent: "center" }}>
           <Text>Cargando...</Text>
@@ -104,11 +90,7 @@ export class App extends Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
             {/*  Main screen */}
-            <Stack.Screen
-              name="Main"
-              component={MainScreen}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="Main" component={MainScreen} />
             {/* Add/camera screen */}
             <Stack.Screen
               name="Add"
