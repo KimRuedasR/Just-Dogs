@@ -80,7 +80,13 @@ The Just Dogs app is currently in its initial development phase. The foundationa
 - Firebase Integration: Firebase has been integrated for authentication and data storage.
 - Navigation: Basic navigation and a bottom tab bar with icons for the different app screens.
 - Redux Integration: Redux is now integrated into the app. This brings a robust state management solution, making the app more scalable and its state predictable.
-- Camera Functionality: Users can t🐕 v1.4.1 update README.md 🐕oped, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.
+  Camera Functionality: Users can take and upload pictures within the app.
+- Image Posting and Saving: Added the ability to upload images and save them to Firestore storage.
+- Profile display: User profile display and layout for image posts.
+- Search: Search functionality for user and their image posts.
+- UI Development: The user interface for the landing, login, and registration screens is under development.
+
+The project is actively being developed, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.estions are welcome to make Just Dogs a delightful experience for its users.
 
 ## 👥🐕‍🦺 Contributing
 
