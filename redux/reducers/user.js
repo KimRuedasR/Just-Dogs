@@ -1,8 +1,13 @@
-import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE } from "../constants";
+import {
+  USER_STATE_CHANGE,
+  USER_POSTS_STATE_CHANGE,
+  USER_FOLLOWING_STATE_CHANGE,
+} from "../constants";
 // Initial state for the user
 const initialState = {
   currentUser: null,
   posts: [],
+  following: [],
 };
 
 // User reducer to handle state changes
@@ -17,6 +22,11 @@ export const user = (state = initialState, action) => {
       return {
         ...state,
         posts: action.posts,
+      };
+    case USER_FOLLOWING_STATE_CHANGE:
+      return {
+        ...state,
+        following: action.following,
       };
     default:
       return state;

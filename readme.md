@@ -3,7 +3,7 @@
 ```
 
                       Just Dogs App
-                          v1.5.2
+                          v1.6.1
 
                🐶🐾 An exclusive platform 🐾🐶
              for dog lovers and their furry pals
@@ -84,6 +84,7 @@ The Just Dogs app is currently in its initial development phase. The foundationa
 - Image Posting and Saving: Added the ability to upload images and save them to Firestore storage.
 - Profile display: User profile display and layout for image posts.
 - Search: Search functionality for user and their image posts.
+- Feed: Display posts from the other users followed by the current user.
 - UI Development: The user interface for the landing, login, and registration screens is under development.
 
 The project is actively being developed, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.estions are welcome to make Just Dogs a delightful experience for its users.
