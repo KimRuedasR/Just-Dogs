@@ -9,7 +9,7 @@ function Feed(props) {
   useEffect(() => {
     let posts = [];
     // Check if all users are loaded and find users by ID
-    if (props.usersLoaded == props.following.length) {
+    if (props.usersFollowingLoaded == props.following.length) {
       for (let i = 0; i < props.following.length; i++) {
         const user = props.users.find((el) => el.uid === props.following[i]);
         // Add posts from each user to posts array
@@ -25,7 +25,7 @@ function Feed(props) {
 
       setPosts(posts);
     }
-  }, [props.usersLoaded]);
+  }, [props.usersFollowingLoaded]);
 
   return (
     // Render feed posts
@@ -39,6 +39,17 @@ function Feed(props) {
             <View style={styles.containerImage}>
               <Text style={styles.container}>{item.user.name}</Text>
               <Image style={styles.image} source={{ uri: item.downloadURL }} />
+              {/* Display comments */}
+              <Text
+                onPress={() =>
+                  props.navigation.navigate("Comment", {
+                    postId: item.id,
+                    uid: item.user.uid,
+                  })
+                }
+              >
+                Ver comentarios...
+              </Text>
             </View>
           )}
         />
@@ -70,7 +81,7 @@ const mapStateToProps = (store) => ({
   currentUser: store.userState.currentUser,
   following: store.userState.following,
   users: store.usersState.users,
-  usersLoaded: store.usersState.usersLoaded,
+  usersFollowingLoaded: store.usersState.usersFollowingLoaded,
 });
 
 export default connect(mapStateToProps, null)(Feed);
