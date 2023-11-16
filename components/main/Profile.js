@@ -69,13 +69,11 @@ function Profile(props) {
   };
 
   const onUnfollow = () => {
-    firebase
-      .firestore()
-      .collection("following")
-      .doc(firebase.auth().currentUser.uid)
-      .collection("userFollowing")
-      .doc(props.route.params.uid)
-      .delete();
+    firebase.auth().signOut();
+  };
+
+  const onLogout = () => {
+    firebase.auth().signOut();
   };
 
   if (user === null) {
@@ -99,7 +97,9 @@ function Profile(props) {
               <Button title="Seguir" onPress={() => onFollow()} />
             )}
           </View>
-        ) : null}
+        ) : (
+          <Button title="Cerrar sesión" onPress={() => onLogout()} />
+        )}
       </View>
 
       {/* Image data */}
