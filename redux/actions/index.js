@@ -71,7 +71,7 @@ export function fetchUserFollowing() {
         });
         dispatch({ type: USER_FOLLOWING_STATE_CHANGE, following });
         for (let i = 0; i < following.length; i++) {
-          dispatch(fetchUsersData(following[i]), true);
+          dispatch(fetchUsersData(following[i], true));
         }
       });
   };
