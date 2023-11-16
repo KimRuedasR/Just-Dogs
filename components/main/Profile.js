@@ -69,7 +69,13 @@ function Profile(props) {
   };
 
   const onUnfollow = () => {
-    firebase.auth().signOut();
+    firebase
+      .firestore()
+      .collection("following")
+      .doc(firebase.auth().currentUser.uid)
+      .collection("userFollowing")
+      .doc(props.route.params.uid)
+      .delete();
   };
 
   const onLogout = () => {
