@@ -78,6 +78,10 @@ function Profile(props) {
       .delete();
   };
 
+  const onLogout = () => {
+    firebase.auth().signOut();
+  };
+
   if (user === null) {
     return <View />;
   }
@@ -99,7 +103,9 @@ function Profile(props) {
               <Button title="Seguir" onPress={() => onFollow()} />
             )}
           </View>
-        ) : null}
+        ) : (
+          <Button title="Cerrar sesión" onPress={() => onLogout()} />
+        )}
       </View>
 
       {/* Image data */}
