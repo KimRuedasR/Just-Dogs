@@ -12,9 +12,11 @@ export default function Save(props) {
   // Function to upload the image to Firebase Storage
   const uploadImage = async () => {
     const uri = props.route.params.image;
-    
+
     // Unique random path for each image
-    const childPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}`;
+    const childPath = `post/${
+      firebase.auth().currentUser.uid
+    }/${Math.random().toString(36)}`;
     console.log(childPath);
 
     const response = await fetch(uri);
@@ -49,6 +51,7 @@ export default function Save(props) {
       .add({
         downloadURL,
         caption,
+        likesCount: 0,
         creation: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(function () {
