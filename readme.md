@@ -3,7 +3,7 @@
 ```
 
                       Just Dogs App
-                          v1.7.2
+                          v1.8.1
 
                🐶🐾 An exclusive platform 🐾🐶
              for dog lovers and their furry pals
@@ -52,7 +52,13 @@ git clone https://github.com/KimRuedasR/Just-Dogs.git
 
 ### 2. Install Dependencies 📦
 
-Navigate to the project directory and run:
+- Navigate to the project directory and run:
+
+```bash
+cd Just-Dogs/frontend
+```
+
+- Then run:
 
 ```bash
 npm install
@@ -60,35 +66,41 @@ npm install
 
 ## 3. Firebase Setup 🔥
 
-- For Firebase integration, create a `.env` file in your project root and add your Firebase configuration keys in the format `EXPO_PUBLIC_API_FIREBASE_API_KEY="your_key"`, etc.
+- For Firebase integration, create a `.env` file in your project root/frontend foler and add your Firebase configuration keys in the format `EXPO_PUBLIC_API_FIREBASE_API_KEY="your_key"`, etc.
 - In your app, access these keys via `process.env.EXPO_PUBLIC_API_FIREBASE_API_KEY` and similar for other Firebase settings.
 - Ensure `.env` is added to `.gitignore` to keep your keys secure.
 
 ### 4. Start the App with Expo 🌟
 
-Run the React project with npm.
+Run the React project with npm in the "./frontend".
 
 ```bash
 npm start
 ```
 
-## 📈🐶 Project Status
+## 📈🐶 Project Features and Status
 
-The Just Dogs app is currently in its initial development phase. The foundational structure of the React Native project has been established, and key components are being implemented.
+The Just Dogs app is in active development. Current features include:
 
-- Authentication System: The app now includes basic authentication screens for user registration and login, using Firebase for backend services.
-- Firebase Integration: Firebase has been integrated for authentication and data storage.
-- Navigation: Basic navigation and a bottom tab bar with icons for the different app screens.
-- Redux Integration: Redux is now integrated into the app. This brings a robust state management solution, making the app more scalable and its state predictable.
-  Camera Functionality: Users can take and upload pictures within the app.
-- Image Posting and Saving: Added the ability to upload images and save them to Firestore storage.
-- Profile display: User profile display and layout for image posts.
-- Search: Search functionality for user and their image posts.
-- Feed: Display posts from the other users followed by the current user.
-- Comments: Add new and display current comments for image posts from different users.
-- UI Development: The user interface for the landing, login, and registration screens is under development.
+    Authentication System: Basic screens for user registration and login using Firebase.
+    Firebase Integration: For authentication and data storage.
+    Navigation: Basic navigation and a bottom tab bar.
+    Redux Integration: For scalable and predictable state management.
+    Camera Functionality: Users can take and upload pictures.
+    Image Posting and Saving: Upload images and save to Firestore.
+    Profile Display: User profile and image post layout.
+    Search: Search functionality for users and their posts.
+    Feed: Display posts from followed users.
+    Comments: Add and display comments on posts.
+    Like/Dislike Functionality: Users can like or dislike posts.
+    UI Development: Ongoing development of user interface screens.
 
-The project is actively being developed, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.estions are welcome to make Just Dogs a delightful experience for its users.
+Current Challenges
+
+    Auto Reload: Working on improving the auto-reload feature for a seamless user experience.
+    Displaying Captions: Implementing the display of captions alongside posts in the feed.
+
+The project welcomes contributions and suggestions.
 
 ## 👥🐕‍🦺 Contributing
 
