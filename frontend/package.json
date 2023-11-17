@@ -1,6 +1,6 @@
 {
   "name": "Just Dogs",
-  "version": "1.1.1",
+  "version": "1.8.1",
   "description": "Mobile platform and social netowrk dedicated to dog enthusiasts for sharing and appreciating humanity's best friend.",
   "scripts": {
     "start": "expo start",
@@ -26,7 +26,7 @@
   "author": "KimRR",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KimRuedasR/Just-Dogs"
+    "url": "https://github.com/KimRuedasR/Just-Dogs/issues"
   },
   "homepage": "https://github.com/KimRuedasR/Just-Dogs#readme",
   "dependencies": {
