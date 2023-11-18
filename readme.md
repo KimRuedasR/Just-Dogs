@@ -3,7 +3,7 @@
 ```
 
                       Just Dogs App
-                          v1.8.1
+                          v1.8.2
 
                🐶🐾 An exclusive platform 🐾🐶
              for dog lovers and their furry pals
@@ -55,27 +55,27 @@ git clone https://github.com/KimRuedasR/Just-Dogs.git
 - Navigate to the project directory and run:
 
 ```bash
-cd Just-Dogs/frontend
-```
-
-- Then run:
-
-```bash
 npm install
 ```
 
 ## 3. Firebase Setup 🔥
 
-- For Firebase integration, create a `.env` file in your project root/frontend foler and add your Firebase configuration keys in the format `EXPO_PUBLIC_API_FIREBASE_API_KEY="your_key"`, etc.
+- For Firebase integration, create a `.env` file in your project root folder and add your Firebase configuration keys in the format `EXPO_PUBLIC_API_FIREBASE_API_KEY="your_key"`, etc.
 - In your app, access these keys via `process.env.EXPO_PUBLIC_API_FIREBASE_API_KEY` and similar for other Firebase settings.
 - Ensure `.env` is added to `.gitignore` to keep your keys secure.
 
 ### 4. Start the App with Expo 🌟
 
-Run the React project with npm in the "./frontend".
+Run the React project with npm in the
 
 ```bash
 npm start
+```
+
+or
+
+```bash
+npx expo start
 ```
 
 ## 📈🐶 Project Features and Status
@@ -100,7 +100,7 @@ Current Challenges
     Auto Reload: Working on improving the auto-reload feature for a seamless user experience.
     Displaying Captions: Implementing the display of captions alongside posts in the feed.
 
-The project welcomes contributions and suggestions.
+The project is actively being developed, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.estions are welcome to make Just Dogs a delightful experience for its users.
 
 ## 👥🐕‍🦺 Contributing
 
