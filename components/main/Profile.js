@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, FlatList, Button, TouchableOpacity } from "react-native";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 import firebase from "firebase/compat/app";

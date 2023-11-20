@@ -67,8 +67,8 @@ export class Register extends Component {
             <View style={container.formCenter}>
                 <TextInput
                     style={form.textInput}
-                    placeholder="Correo"
-                    onChangeText={(email) => this.setState({ email })}
+                    placeholder="Nombre"
+                    onChangeText={(name) => this.setState({ name })}
                 />
                 <TextInput
                     style={form.textInput}
@@ -84,7 +84,7 @@ export class Register extends Component {
 
                 <Button
                     style={form.button}
-                    onPress={() => onRegister()}
+                    onPress={() => this.onSignUp()}
                     title="Registrarse"
                 />
             </View>
