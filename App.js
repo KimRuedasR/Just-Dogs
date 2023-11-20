@@ -30,12 +30,12 @@ if (firebase.apps.length === 0) {
 
 // Components
 import MainScreen from "./components/Main.js";
-import LandingScreen from "./components/auth/Landing";
-import RegisterScreen from "./components/auth/Register";
+import LandingScreen from "./components/auth/Landing.js";
+import RegisterScreen from "./components/auth/Register.js";
 import LoginScreen from "./components/auth/Login";
-import AddScreen from "./components/main/Add";
-import SaveScreen from "./components/main/Save";
-import CommentScreen from "./components/main/Comments.js";
+import AddScreen from "./components/main/add/Add.js";
+import SaveScreen from "./components/main/add/Save.js";
+import CommentScreen from "./components/main/post/Comments.js";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();

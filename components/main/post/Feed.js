@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Button, RefreshControl, BottomSheet } from "react-native";
-import { container, utils } from '../styles';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  FlatList,
+  Button,
+  RefreshControl,
+  BottomSheet,
+} from "react-native";
+import { container, utils } from "../../styles";
 import firebase from "firebase/compat/app";
 require("firebase/firestore");
 
@@ -8,14 +17,14 @@ import { connect } from "react-redux";
 
 function Feed(props) {
   const [posts, setPosts] = useState([]);
-  const [sheetRef, setSheetRef] = useState(useRef(null))
-  const [modalShow, setModalShow] = useState({ visible: false, item: null })
-  const [refreshing, setRefreshing] = useState(false)
+  const [sheetRef, setSheetRef] = useState(useRef(null));
+  const [modalShow, setModalShow] = useState({ visible: false, item: null });
+  const [refreshing, setRefreshing] = useState(false);
   const onViewableItemsChanged = useRef(({ viewableItems, changed }) => {
     if (changed && changed.length > 0) {
-        setInViewPort(changed[0].index);
+      setInViewPort(changed[0].index);
     }
-})
+  });
 
   useEffect(() => {
     // Check if all users are loaded and find users by ID
