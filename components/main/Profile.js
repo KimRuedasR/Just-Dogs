@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Button } from "react-native";
+import { StyleSheet, View, Text, Image, FlatList, Button, TouchableOpacity } from "react-native";
 
 import { connect } from "react-redux";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { container, text, utils } from '../styles'
+import { ScrollView } from 'react-native-gesture-handler';
 require("firebase/compat/firestore");
 require("firebase/firestore");
+import CachedImage from '../random/CachedImage';
 
 function Profile(props) {
   const [userPosts, setUserPosts] = useState([]);
@@ -88,40 +91,165 @@ function Profile(props) {
 
   // Render user profile and posts
   return (
-    <View style={styles.container}>
-      {/* User data */}
-      <View style={styles.containerInfo}>
-        <Text>{user.name}</Text>
-        <Text>{user.email}</Text>
+    // <View style={styles.container}>
+    //   {/* User data */}
+    //   <View style={styles.containerInfo}>
+    //     <Text>{user.name}</Text>
+    //     <Text>{user.email}</Text>
 
-        {/* Follow button */}
-        {props.route.params.uid !== firebase.auth().currentUser.uid ? (
-          <View>
-            {following ? (
-              <Button title="Siguiendo" onPress={() => onUnfollow()} />
-            ) : (
-              <Button title="Seguir" onPress={() => onFollow()} />
-            )}
-          </View>
-        ) : (
-          <Button title="Cerrar sesión" onPress={() => onLogout()} />
-        )}
-      </View>
+    //     {/* Follow button */}
+    //     {props.route.params.uid !== firebase.auth().currentUser.uid ? (
+    //       <View>
+    //         {following ? (
+    //           <Button title="Siguiendo" onPress={() => onUnfollow()} />
+    //         ) : (
+    //           <Button title="Seguir" onPress={() => onFollow()} />
+    //         )}
+    //       </View>
+    //     ) : (
+    //       <Button title="Cerrar sesión" onPress={() => onLogout()} />
+    //     )}
+    //   </View>
 
-      {/* Image data */}
-      <View style={styles.containerGallery}>
-        <FlatList
-          numColumns={3}
-          horizontal={false}
-          data={userPosts}
-          renderItem={({ item }) => (
-            <View style={styles.containerImage}>
-              <Image style={styles.image} source={{ uri: item.downloadURL }} />
+    //   {/* Image data */}
+    //   <View style={styles.containerGallery}>
+    //     <FlatList
+    //       numColumns={3}
+    //       horizontal={false}
+    //       data={userPosts}
+    //       renderItem={({ item }) => (
+    //         <View style={styles.containerImage}>
+    //           <Image style={styles.image} source={{ uri: item.downloadURL }} />
+    //         </View>
+    //       )}
+    //     />
+    //   </View>
+    // </View>
+    <ScrollView style={[container.container, utils.backgroundWhite]}>
+
+            <View style={[container.profileInfo]}>
+
+                <View style={[utils.noPadding, container.row]}>
+
+                    {user.image == 'default' ?
+                        (
+                            <FontAwesome5
+                                style={[utils.profileImageBig, utils.marginBottomSmall]}
+                                name="user-circle" size={80} color="black" />
+                        )
+                        :
+                        (
+                            <Image
+                                style={[utils.profileImageBig, utils.marginBottomSmall]}
+                                source={{
+                                    uri: user.image
+                                }}
+                            />
+                        )
+                    }
+
+                    <View style={[container.container, container.horizontal, utils.justifyCenter, utils.padding10Sides]}>
+
+                        <View style={[utils.justifyCenter, text.center, container.containerImage]}>
+                            <Text style={[text.bold, text.large, text.center]}>{userPosts.length}</Text>
+                            <Text style={[text.center]}>Posts</Text>
+                        </View>
+                        <View style={[utils.justifyCenter, text.center, container.containerImage]}>
+                            <Text style={[text.bold, text.large, text.center]}>{user.followersCount}</Text>
+                            <Text style={[text.center]}>Followers</Text>
+                        </View>
+                        <View style={[utils.justifyCenter, text.center, container.containerImage]}>
+                            <Text style={[text.bold, text.large, text.center]}>{user.followingCount}</Text>
+                            <Text style={[text.center]}>Following</Text>
+                        </View>
+                    </View>
+
+                </View>
+
+
+                <View>
+                    <Text style={text.bold}>{user.name}</Text>
+                    <Text>{user.email}</Text>
+                    <Text style={[text.profileDescription, utils.marginBottom]}>{user.description}</Text>
+
+                    {props.route.params.uid !== firebase.auth().currentUser.uid ? (
+                        <View style={[container.horizontal]}>
+                            {following ? (
+                                <TouchableOpacity
+                                    style={[utils.buttonOutlined, container.container, utils.margin15Right]}
+                                    title="Following"
+                                    onPress={() => onUnfollow()}>
+                                    <Text style={[text.bold, text.center, text.green]}>Following</Text>
+                                </TouchableOpacity>
+                            )
+                                :
+                                (
+                                    <TouchableOpacity
+                                        style={[utils.buttonOutlined, container.container, utils.margin15Right]}
+                                        title="Follow"
+                                        onPress={() => onFollow()}>
+                                        <Text style={[text.bold, text.center, { color: '#2196F3' }]}>Follow</Text>
+                                    </TouchableOpacity>
+
+                                )}
+
+                            <TouchableOpacity
+                                style={[utils.buttonOutlined, container.container]}
+                                title="Follow"
+                                onPress={() => props.navigation.navigate('Chat', { user })}>
+                                <Text style={[text.bold, text.center]}>Message</Text>
+                            </TouchableOpacity>
+                        </View>
+                    ) : 
+                        <TouchableOpacity
+                            style={[utils.buttonOutlined, utils.margin5Bottom]}
+                            onPress={() => props.navigation.navigate('Edit')}>
+                            <Text style={[text.bold, text.center]}>Edit Profile</Text>
+                        </TouchableOpacity>
+                        
+                        }
+                        <TouchableOpacity
+                            style={utils.buttonOutlined}
+                            onPress={() => onLogout()}>
+                            <Text style={[text.bold, text.center]}>Cerrar sesion</Text>
+                        </TouchableOpacity>
+                
+                
+                </View>
             </View>
-          )}
-        />
-      </View>
-    </View>
+
+            <View style={[utils.borderTopGray]}>
+                <FlatList
+                    numColumns={3}
+                    horizontal={false}
+                    data={userPosts}
+                    style={{}}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={[container.containerImage, utils.borderWhite]}
+                            onPress={() => props.navigation.navigate("Post", { item, user })}>
+
+                            {item.type == 0 ?
+
+                                <CachedImage
+                                    cacheKey={item.id}
+                                    style={container.image}
+                                    source={{ uri: item.downloadURLStill }}
+                                />
+
+                                :
+
+                                <CachedImage
+                                    cacheKey={item.id}
+                                    style={container.image}
+                                    source={{ uri: item.downloadURL }}
+                                />
+                            }
+                        </TouchableOpacity>
+                    )}
+                />
+            </View>
+        </ScrollView >
   );
 }
 

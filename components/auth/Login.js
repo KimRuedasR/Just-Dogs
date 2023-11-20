@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { View, Button, TextInput } from "react-native";
+import { View, Button, TextInput, Text } from "react-native";
+import { container, form } from '../styles';
 
 // Modules
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+
 
 // Register component class
 export class Login extends Component {
@@ -37,18 +39,28 @@ export class Login extends Component {
   // Login form
   render() {
     return (
-      <View>
-        <TextInput
-          placeholder="Correo"
-          onChangeText={(email) => this.setState({ email })}
-        />
-        <TextInput
-          placeholder="Contraseña"
-          secureTextEntry={true}
-          onChangeText={(password) => this.setState({ password })}
-        />
-        <Button onPress={() => this.onSignUp()} title="Iniciar sesión" />
+      <View style={container.center}>
+      <View style={container.formCenter}>
+          <TextInput
+              style={form.textInput}
+              placeholder="Correo electronico"
+              onChangeText={(email) => this.setState({ email })}
+          />
+          <TextInput
+              style={form.textInput}
+              placeholder="Contrasenia"
+              secureTextEntry={true}
+              onChangeText={(password) => this.setState({ password })}
+          />
+
+          <Button
+              style={form.button}
+              onPress={() => this.onSignUp()}
+              title="Iniciar sesion"
+          />
       </View>
+  </View>
+
     );
   }
 }
