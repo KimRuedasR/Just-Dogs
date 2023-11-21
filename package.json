@@ -1,6 +1,6 @@
 {
   "name": "Just Dogs",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Mobile platform and social netowrk dedicated to dog enthusiasts for sharing and appreciating humanity's best friend.",
   "scripts": {
     "start": "expo start",
@@ -39,7 +39,7 @@
     "expo-camera": "~13.4.4",
     "expo-font": "~11.4.0",
     "expo-image-picker": "~14.3.2",
-    "expo-notifications": "^0.23.0",
+    "expo-notifications": "~0.20.1",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.6.0",
     "react": "^18.2.0",
