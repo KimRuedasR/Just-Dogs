@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, Button, TextInput, Text } from "react-native";
-import { container, form } from '../styles';
+import { View, Button, TextInput, Text, KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import { container, form, text, utils } from '../styles';
+
 
 // Modules
 import firebase from "firebase/compat/app";
@@ -63,33 +64,42 @@ export class Register extends Component {
       //   />
       //   <Button onPress={() => this.onSignUp()} title="Registrarse" />
       // </View>
-      <View style={container.center}>
-            <View style={container.formCenter}>
-                <TextInput
-                    style={form.textInput}
-                    placeholder="Nombre"
-                    onChangeText={(name) => this.setState({ name })}
-                />
-                <TextInput
-                    style={form.textInput}
-                    placeholder="Correo"
-                    onChangeText={(email) => this.setState({ email })}
-                />
-                <TextInput
-                    style={form.textInput}
-                    placeholder="Contraseña"
-                    secureTextEntry={true}
-                    onChangeText={(password) => this.setState({ password })}
-                />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={container.container}
+      >
+        <View style={container.center}>
+          <View style={container.formCenter}>
+            <Text style={[text.center, text.xl, text.bold]}>Hola!</Text>
+            <TextInput
+              style={form.textInput}
+              placeholder="Nombre"
+              onChangeText={(name) => this.setState({ name })}
+            />
+            <TextInput
+              style={form.textInput}
+              placeholder="Correo"
+              onChangeText={(email) => this.setState({ email })}
+            />
+            <TextInput
+              style={form.textInput}
+              placeholder="Contraseña"
+              secureTextEntry={true}
+              onChangeText={(password) => this.setState({ password })}
+            />
 
-                <Button
-                    style={form.button}
-                    onPress={() => this.onSignUp()}
-                    title="Registrarse"
-                />
-            </View>
+            <TouchableOpacity
+              style={utils.buttonLanding}
+              title="Iniciar sesión"
+              onPress={() => this.onSignUp()}
+            >
+              <Text style={[text.bold, text.center, text.medium]}>
+                Registrarse
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
+      </KeyboardAvoidingView>
     );
   }
 }

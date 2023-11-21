@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, Button, TextInput, Text } from "react-native";
-import { container, form } from '../styles';
+import { View, Button, TextInput, Text, KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import { container, form, text, utils } from '../styles';
 
 // Modules
 import firebase from "firebase/compat/app";
@@ -39,8 +39,12 @@ export class Login extends Component {
   // Login form
   render() {
     return (
-      <View style={container.center}>
-      <View style={container.formCenter}>
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={container.container}>
+    <View style={container.center}>
+    <View style={[container.formCenter, container.landingcontainer]}>
+        <Text style={[text.center, text.xl, text.bold]}>Bienvenido!</Text>
           <TextInput
               style={form.textInput}
               placeholder="Correo electronico"
@@ -52,14 +56,17 @@ export class Login extends Component {
               secureTextEntry={true}
               onChangeText={(password) => this.setState({ password })}
           />
-
-          <Button
-              style={form.button}
-              onPress={() => this.onSignUp()}
-              title="Iniciar sesion"
-          />
+        <TouchableOpacity
+          
+          style={utils.buttonLanding}
+          title="Iniciar sesión"
+          onPress={() => this.onSignUp()}
+        >
+          <Text style={[text.bold, text.center, text.medium]}>Iniciar sesion</Text>
+        </TouchableOpacity>
       </View>
   </View>
+  </KeyboardAvoidingView>
 
     );
   }
