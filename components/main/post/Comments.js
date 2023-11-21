@@ -10,7 +10,7 @@ require("firebase/firestore");
 // Redux imports
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchUsersData } from "../../redux/actions/index.js";
+import { fetchUsersData } from "../../../redux/actions/index";
 
 function Comment(props) {
   const [comments, setComments] = useState([]);

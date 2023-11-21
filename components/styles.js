@@ -1,6 +1,11 @@
 
 import { StyleSheet } from 'react-native'
 const utils = StyleSheet.create({
+    
+    redBackground: {
+        backgroundColor: '',
+    },
+    
     centerHorizontal: {
         alignItems: 'center',
     },
@@ -77,7 +82,7 @@ const utils = StyleSheet.create({
     },
     borderTopGray: {
         borderTopWidth: 1,
-        borderColor: 'lightgrey'
+        borderColor: 'lightgrey',
     },
     borderWhite: {
         borderLeftWidth: 2,
@@ -85,6 +90,16 @@ const utils = StyleSheet.create({
         borderTopWidth: 2,
         borderColor: 'white'
     },
+
+    button: {
+        padding: 8,
+        color: 'white',
+        borderWidth: 1,
+        borderColor: 'white',
+        borderRadius: 8,
+        textAlign: 'center',
+    },
+
     buttonOutlined: {
         padding: 8,
         color: 'white',
@@ -96,6 +111,7 @@ const utils = StyleSheet.create({
     buttonLanding: {
         height:50,
         marginBottom:10,
+        marginTop: 15,
         padding: 8,
         color: 'white',
         borderWidth: 1,
@@ -130,6 +146,9 @@ const navbar = StyleSheet.create({
     }
 })
 const container = StyleSheet.create({
+    landingcontainer: {
+        alignContent: 'center'
+    },
     container: {
         flex: 1,
     },
@@ -176,6 +195,7 @@ const container = StyleSheet.create({
     },
     image: {
         aspectRatio: 1 / 1,
+        marginTop:2
     },
     fillHorizontal: {
         flexGrow: 1,
@@ -268,6 +288,10 @@ const text = StyleSheet.create({
     },
     bold: {
         fontWeight: '700',
+    },
+    xl: {
+        fontSize: 50,//'large'
+        marginBottom: 80        
     },
     large: {
         fontSize: 20//'large'

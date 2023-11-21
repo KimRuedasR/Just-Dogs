@@ -14,9 +14,9 @@ import {
 import firebase from "firebase/compat/app";
 
 // Components
-import FeedScreen from "./main/Feed";
-import ProfileScreen from "./main/Profile";
-import SearchScreen from "./main/Search";
+import FeedScreen from "./main/post/Feed.js";
+import ProfileScreen from "./main/profile/Profile.js";
+import SearchScreen from "./main/profile/Search.js";
 
 const Tab = createMaterialBottomTabNavigator();
 const EmptyScreen = () => {
