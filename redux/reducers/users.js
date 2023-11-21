@@ -1,9 +1,9 @@
 import {
-  USERS_DATA_STATE_CHANGE,
-  USERS_POSTS_STATE_CHANGE,
-  USERS_LIKES_STATE_CHANGE,
   CLEAR_DATA,
-} from "../constants/index.js";
+  USERS_DATA_STATE_CHANGE,
+  USERS_LIKES_STATE_CHANGE,
+  USERS_POSTS_STATE_CHANGE,
+} from "../constants";
 
 // Initial state for the users
 const initialState = {
