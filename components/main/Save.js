@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, TextInput, Image, Button } from "react-native";
+import { View, TextInput, Image, Button, Alert } from "react-native";
+
 
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase/compat/app";
@@ -55,9 +56,12 @@ export default function Save(props) {
         creation: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(function () {
+        alert("¡Su imagen si pertenece a un perro!");
         props.navigation.popToTop();
       });
   };
+
+  
 
   return (
     <View style={{ flex: 1 }}>
@@ -65,6 +69,7 @@ export default function Save(props) {
       <TextInput
         placeholder="Añade una descripción. . ."
         onChangeText={(caption) => setCaption(caption)}
+        
       />
 
       <Button title="Guardar" onPress={() => uploadImage()} />
