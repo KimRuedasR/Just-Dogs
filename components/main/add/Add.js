@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { container, utils } from '../../styles';
+import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
+import { container, utils } from "../../styles";
 
 export default function Add({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Request permissions for camera and gallery
   useEffect(() => {
@@ -26,7 +36,7 @@ export default function Add({ navigation }) {
   const takePicture = async () => {
     if (camera) {
       const data = await camera.takePictureAsync(null);
-      setImage(data.uri);
+      handleImageSelection(data.uri);
     }
   };
 
@@ -40,11 +50,78 @@ export default function Add({ navigation }) {
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      handleImageSelection(result.assets[0].uri);
     }
   };
 
-  // Handling permission states
+  // Function to handle image selection, upload and validation
+  const handleImageSelection = (uri) => {
+    setImage(uri);
+    setIsAnalyzing(true);
+    uploadAndValidateImage(uri);
+  };
+
+  // Uploads the image and validates if it's a dog
+  const uploadAndValidateImage = async (imageUri) => {
+    const fileExtension = imageUri.split(".").pop();
+    const childPath = `post/${
+      firebase.auth().currentUser.uid
+    }/${Math.random().toString(36)}.${fileExtension}`;
+
+    const response = await fetch(imageUri);
+    const blob = await response.blob();
+
+    const task = firebase.storage().ref().child(childPath).put(blob);
+
+    task.on(
+      "state_changed",
+      (snapshot) => {
+        console.log(`transferred: ${snapshot.bytesTransferred}`);
+      },
+      (error) => {
+        console.log(error);
+        setIsAnalyzing(false);
+      },
+      () => {
+        task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          setTimeout(() => {
+            // Wait for Firebase function to execute
+            firebase
+              .storage()
+              .ref()
+              .child(childPath)
+              .getMetadata()
+              .then(() => {
+                setIsAnalyzing(false);
+                navigation.navigate("Save", {
+                  image: downloadURL,
+                  imagePath: childPath,
+                });
+              })
+              .catch((error) => {
+                alert(
+                  "La imagen subida no es un perro. Por favor, intenta de nuevo."
+                );
+                setIsAnalyzing(false);
+                setImage(null); // Clear the image selection
+              });
+          }, 3000); // 3 second timer to wait for Firebase function
+        });
+      }
+    );
+  };
+
+  // Rendering the loading screen while analyzing the image
+  if (isAnalyzing) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+        <Text>Analizando imagen...</Text>
+      </View>
+    );
+  }
+
+  // Rendering the main screen
   if (hasPermission === null) {
     return <View />;
   }
@@ -53,7 +130,9 @@ export default function Add({ navigation }) {
   }
 
   return (
-    <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white' }}>
+    <View
+      style={{ flex: 1, flexDirection: "column", backgroundColor: "white" }}
+    >
       <View style={styles.cameraContainer}>
         <Camera
           ref={(ref) => setCamera(ref)}
@@ -62,7 +141,6 @@ export default function Add({ navigation }) {
           ratio={"1:1"}
         />
       </View>
-      {/* // Buttons for image upload */}
       <Button
         title="Girar Imagen"
         onPress={() =>
@@ -77,7 +155,7 @@ export default function Add({ navigation }) {
       <Button title="Elegir Imagen de Galería" onPress={pickImage} />
       <Button
         title="Utilizar imagen"
-        onPress={() => navigation.navigate("Save", { image })}
+        onPress={() => image && handleImageSelection(image)}
       />
       {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />

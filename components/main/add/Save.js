@@ -1,52 +1,12 @@
 import React, { useState } from "react";
 import { View, TextInput, Image, Button, Alert } from "react-native";
-
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 
 export default function Save(props) {
   const [caption, setCaption] = useState("");
-
-  // Function to upload the image to Firebase Storage
-  const uploadImage = async () => {
-    const uri = props.route.params.image;
-    const fileExtension = uri.split('.').pop();
-    const childPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}.${fileExtension}`;
-
-    const response = await fetch(uri);
-    const blob = await response.blob();
-
-    const task = firebase.storage().ref().child(childPath).put(blob);
-
-    task.on(
-      "state_changed",
-      (snapshot) => {
-        console.log(`transferred: ${snapshot.bytesTransferred}`);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        task.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          checkIfDogExists(downloadURL, childPath);
-        });
-      }
-    );
-  };
-
-   // Verifies if the uploaded image is a dog
-  const checkIfDogExists = (downloadURL, childPath) => {
-    setTimeout(() => {
-      firebase.storage().ref().child(childPath).getMetadata()
-        .then(() => {
-          savePostData(downloadURL);
-        })
-        .catch((error) => {
-          alert("La imagen subida no es un perro. Por favor, intenta de nuevo.");
-        });
-    }, 3000);
-  };
+  const { image, imagePath } = props.route.params;
 
   // Function to save post data to Firestore
   const savePostData = (downloadURL) => {
@@ -64,18 +24,27 @@ export default function Save(props) {
       .then(() => {
         alert("¡Imagen confirmada como perro y publicada!");
         props.navigation.popToTop();
+      })
+      .catch((error) => {
+        console.log(error);
+        // Delete the image if there's an error saving the post
+        firebase.storage().ref().child(imagePath).delete();
+        Alert.alert(
+          "Error",
+          "No se pudo publicar la imagen. Intente de nuevo."
+        );
       });
   };
 
   return (
     <View style={{ flex: 1 }}>
-      <Image source={{ uri: props.route.params.image }} />
+      <Image source={{ uri: image }} />
       <TextInput
-        placeholder="Añade una descripción. . ."
+        placeholder="Añade una descripción..."
         onChangeText={(caption) => setCaption(caption)}
+        style={{ margin: 10, padding: 5, borderWidth: 1, borderColor: "gray" }}
       />
-
-      <Button title="Guardar" onPress={() => uploadImage()} />
+      <Button title="Publicar" onPress={() => savePostData(image)} />
     </View>
   );
 }
