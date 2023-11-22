@@ -1,36 +1,32 @@
-import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Button, RefreshControl, BottomSheet } from "react-native";
-import { container, utils, text } from '../../styles';
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import { container, utils, text } from "../../styles";
+import { AntDesign, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase/compat/app";
 require("firebase/firestore");
-
 import { connect } from "react-redux";
 
 function Feed(props) {
   const [posts, setPosts] = useState([]);
-  const [sheetRef, setSheetRef] = useState(useRef(null))
-  const [modalShow, setModalShow] = useState({ visible: false, item: null })
-  const [refreshing, setRefreshing] = useState(false)
-  const onViewableItemsChanged = useRef(({ viewableItems, changed }) => {
-    if (changed && changed.length > 0) {
-        setInViewPort(changed[0].index);
-    }
-})
 
   useEffect(() => {
-    // Check if all users are loaded and find users by ID
     if (
-      props.usersFollowingLoaded == props.following.length &&
+      props.usersFollowingLoaded === props.following.length &&
       props.following.length !== 0
     ) {
-      props.feed.sort(function (x, y) {
-        return x.creation - y.creation;
-      });
+      props.feed.sort((x, y) => x.creation - y.creation);
       setPosts(props.feed);
     }
-    console.log(posts);
   }, [props.usersFollowingLoaded, props.feed]);
 
+  // Like and dislike post functions
   const onLikePress = (userId, postId) => {
     firebase
       .firestore()
@@ -42,6 +38,7 @@ function Feed(props) {
       .doc(firebase.auth().currentUser.uid)
       .set({});
   };
+
   const onDislikePress = (userId, postId) => {
     firebase
       .firestore()
@@ -55,31 +52,46 @@ function Feed(props) {
   };
 
   return (
-    // Render feed posts
-
     <View style={[container.container, utils.backgroundWhite]}>
-      <View style={styles.containerGallery}>
-        <FlatList
-          numColumns={1}
-          horizontal={false}
-          data={posts}
-          renderItem={({ item }) => (
-            // Image posts
-            <View style={styles.containerImage}>
-              <Text style={styles.container}>{item.user.name}</Text>
-              <Image style={styles.image} source={{ uri: item.downloadURL }} />
-              {item.currentUserLike ? (
-                <Button
-                  title="Dislike"
-                  onPress={() => onDislikePress(item.user.uid, item.id)}
-                />
-              ) : (
-                <Button
-                  title="Like"
-                  onPress={() => onLikePress(item.user.uid, item.id)}
-                />
-              )}
-              <Text
+      <FlatList
+        numColumns={1}
+        horizontal={false}
+        data={posts}
+        renderItem={({ item }) => (
+          <View style={styles.postContainer}>
+            <View style={styles.postHeader}>
+              <FontAwesome
+                name="user-circle"
+                size={30}
+                color="#0cc0df"
+                style={styles.profileIcon}
+              />
+              <Text style={styles.userName}>{item.user.name}</Text>
+            </View>
+            <Image
+              style={styles.postImage}
+              source={{ uri: item.downloadURL }}
+            />
+            <Text style={styles.caption}>{item.caption}</Text>
+            <View style={styles.postFooter}>
+              <TouchableOpacity
+                style={[
+                  styles.likeButton,
+                  item.currentUserLike ? styles.liked : null,
+                ]}
+                onPress={() =>
+                  item.currentUserLike
+                    ? onDislikePress(item.user.uid, item.id)
+                    : onLikePress(item.user.uid, item.id)
+                }
+              >
+                <AntDesign name="like2" size={24} color="black" />
+                <Text style={styles.buttonText}>
+                  {item.currentUserLike ? "Dislike" : "Like"}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.commentsButton}
                 onPress={() =>
                   props.navigation.navigate("Comment", {
                     postId: item.id,
@@ -87,113 +99,76 @@ function Feed(props) {
                   })
                 }
               >
-                Ver comentarios...
-              </Text>
+                <FontAwesome5 name="comments" size={24} color="black" />
+                <Text style={styles.commentsText}>Ver comentarios</Text>
+              </TouchableOpacity>
             </View>
-          )}
-        />
-      </View>
+          </View>
+        )}
+      />
     </View>
-    // <View style={[container.container, utils.backgroundWhite]}>
-
-    //         <FlatList
-    //             refreshControl={
-    //                 <RefreshControl
-    //                     refreshing={refreshing}
-    //                     onRefresh={() => {
-    //                         setRefreshing(true);
-    //                         props.reload()
-    //                     }}
-    //                 />
-    //             }
-    //             onViewableItemsChanged={onViewableItemsChanged.current}
-    //             viewabilityConfig={{
-    //                 waitForInteraction: false,
-    //                 viewAreaCoveragePercentThreshold: 70
-    //             }}
-    //             numColumns={1}
-    //             horizontal={false}
-    //             data={posts}
-    //             keyExtractor={(item, index) => index.toString()}
-
-    //             renderItem={({ item, index }) => (
-    //                 <View key={index}>
-    //                     <Post route={{ params: { user: item.user, item, index, unmutted, inViewPort, setUnmuttedMain: setUnmutted, setModalShow, feed: true } }} navigation={props.navigation} />
-    //                 </View>
-    //             )}
-    //         />
-
-    //         <BottomSheet
-    //             bottomSheerColor="#FFFFFF"
-    //             ref={setSheetRef}
-    //             initialPosition={0} //200, 300
-    //             snapPoints={[300, 0]}
-    //             isBackDrop={true}
-    //             isBackDropDismissByPress={true}
-    //             isRoundBorderWithTipHeader={true}
-    //             backDropColor="black"
-    //             isModal
-    //             containerStyle={{ backgroundColor: "white" }}
-    //             tipStyle={{ backgroundColor: "white" }}
-    //             headerStyle={{ backgroundColor: "white", flex: 1 }}
-    //             bodyStyle={{ backgroundColor: "white", flex: 1, borderRadius: 20 }}
-    //             body={
-
-    //                 <View>
-
-    //                     {modalShow.item != null ?
-    //                         <View>
-    //                             <TouchableOpacity style={{ padding: 20 }}
-    //                                 onPress={() => {
-    //                                     props.navigation.navigate("ProfileOther", { uid: modalShow.item.user.uid, username: undefined });
-    //                                     setModalShow({ visible: false, item: null });
-    //                                 }}>
-    //                                 <Text >Profile</Text>
-    //                             </TouchableOpacity>
-    //                             <Divider />
-    //                             {modalShow.item.creator == firebase.auth().currentUser.uid ?
-    //                                 <TouchableOpacity style={{ padding: 20 }}
-    //                                     onPress={() => {
-    //                                         props.deletePost(modalShow.item).then(() => {
-    //                                             setRefreshing(true);
-    //                                             props.reload()
-    //                                         })
-    //                                         setModalShow({ visible: false, item: null });
-    //                                     }}>
-    //                                     <Text >Delete</Text>
-    //                                 </TouchableOpacity>
-    //                                 : null}
-
-    //                             <Divider />
-    //                             <TouchableOpacity style={{ padding: 20 }} onPress={() => setModalShow({ visible: false, item: null })}>
-    //                                 <Text >Cancel</Text>
-    //                             </TouchableOpacity>
-    //                         </View>
-    //                         : null}
-
-    //                 </View>
-    //             }
-    //         />
-    //     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  postContainer: {
+    marginBottom: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    overflow: "hidden",
+    borderWidth: 2,
+    borderColor: "#0cc0df", // Border for the whole post
   },
-  containerInfo: {
-    margin: 20,
+  postHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
   },
-  containerGallery: {
-    flex: 1,
+  profileIcon: {
+    marginRight: 10,
   },
-  containerImage: {
-    flex: 1 / 3,
+  userName: {
+    fontWeight: "bold",
+    fontSize: 18,
   },
-  image: {
-    flex: 1,
-    aspectRatio: 1 / 1,
+  postImage: {
+    width: "100%",
+    aspectRatio: 1,
+  },
+  caption: {
+    padding: 10,
+    fontStyle: "italic",
+    fontSize: 16,
+  },
+  postFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  likeButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 5,
+    borderRadius: 5,
+    backgroundColor: "#0cc0df", // Blue background for like button
+    flex: 0.3,
+  },
+  liked: {
+    backgroundColor: "#0cc0df",
+  },
+  commentsButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    flex: 0.7,
+  },
+  buttonText: {
+    color: "#000",
+    marginLeft: 5,
+  },
+  commentsText: {
+    color: "#007bff",
+    marginLeft: 5,
   },
 });
 
