@@ -18,7 +18,7 @@ import {
 } from "../../../redux/actions/index";
 import { container, text, utils } from "../../styles";
 import { timeDifference } from "../../utils";
-import CachedImage from "../random/CachedImage";
+import CachedImage from "../../misc/CachedImage";
 import firebase from "firebase/compat/app";
 require("firebase/firestore");
 
