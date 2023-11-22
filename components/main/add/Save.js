@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { View, TextInput, Image, Button, Alert } from "react-native";
 
-
-import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
@@ -13,33 +11,41 @@ export default function Save(props) {
   // Function to upload the image to Firebase Storage
   const uploadImage = async () => {
     const uri = props.route.params.image;
-
-    // Unique random path for each image
-    const childPath = `post/${
-      firebase.auth().currentUser.uid
-    }/${Math.random().toString(36)}`;
-    console.log(childPath);
+    const fileExtension = uri.split('.').pop();
+    const childPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}.${fileExtension}`;
 
     const response = await fetch(uri);
     const blob = await response.blob();
 
     const task = firebase.storage().ref().child(childPath).put(blob);
 
-    // Handle progress, succes and errors of image uploading
-    const taskProgress = (snapshot) => {
-      console.log(`transferred: ${snapshot.bytesTransferred}`);
-    };
-    const taskCompleted = () => {
-      task.snapshot.ref.getDownloadURL().then((snapshot) => {
-        savePostData(snapshot);
-        console.log(snapshot);
-      });
-    };
-    const taskError = (snapshot) => {
-      console.log(snapshot);
-    };
+    task.on(
+      "state_changed",
+      (snapshot) => {
+        console.log(`transferred: ${snapshot.bytesTransferred}`);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          checkIfDogExists(downloadURL, childPath);
+        });
+      }
+    );
+  };
 
-    task.on("state_changed", taskProgress, taskError, taskCompleted);
+   // Verifies if the uploaded image is a dog
+  const checkIfDogExists = (downloadURL, childPath) => {
+    setTimeout(() => {
+      firebase.storage().ref().child(childPath).getMetadata()
+        .then(() => {
+          savePostData(downloadURL);
+        })
+        .catch((error) => {
+          alert("La imagen subida no es un perro. Por favor, intenta de nuevo.");
+        });
+    }, 3000);
   };
 
   // Function to save post data to Firestore
@@ -55,13 +61,11 @@ export default function Save(props) {
         likesCount: 0,
         creation: firebase.firestore.FieldValue.serverTimestamp(),
       })
-      .then(function () {
-        alert("¡Su imagen si pertenece a un perro!");
+      .then(() => {
+        alert("¡Imagen confirmada como perro y publicada!");
         props.navigation.popToTop();
       });
   };
-
-  
 
   return (
     <View style={{ flex: 1 }}>
@@ -69,7 +73,6 @@ export default function Save(props) {
       <TextInput
         placeholder="Añade una descripción. . ."
         onChangeText={(caption) => setCaption(caption)}
-        
       />
 
       <Button title="Guardar" onPress={() => uploadImage()} />
