@@ -92,60 +92,18 @@ function Profile(props) {
 
   // Render user profile and posts
   return (
-    // <View style={styles.container}>
-    //   {/* User data */}
-    //   <View style={styles.containerInfo}>
-    //     <Text>{user.name}</Text>
-    //     <Text>{user.email}</Text>
-
-    //     {/* Follow button */}
-    //     {props.route.params.uid !== firebase.auth().currentUser.uid ? (
-    //       <View>
-    //         {following ? (
-    //           <Button title="Siguiendo" onPress={() => onUnfollow()} />
-    //         ) : (
-    //           <Button title="Seguir" onPress={() => onFollow()} />
-    //         )}
-    //       </View>
-    //     ) : (
-    //       <Button title="Cerrar sesión" onPress={() => onLogout()} />
-    //     )}
-    //   </View>
-
-    //   {/* Image data */}
-    //   <View style={styles.containerGallery}>
-    //     <FlatList
-    //       numColumns={3}
-    //       horizontal={false}
-    //       data={userPosts}
-    //       renderItem={({ item }) => (
-    //         <View style={styles.containerImage}>
-    //           <Image style={styles.image} source={{ uri: item.downloadURL }} />
-    //         </View>
-    //       )}
-    //     />
-    //   </View>
-    // </View>
     <FlatList
       ListHeaderComponent={
         <>
           <View style={[container.profileInfo]}>
             <View style={[utils.noPadding, container.row]}>
-              {user.image == "default" ? (
                 <FontAwesome5
                   style={[utils.profileImageBig, utils.marginBottomSmall]}
                   name="user-circle"
                   size={80}
                   color="black"
                 />
-              ) : (
-                <Image
-                  style={[utils.profileImageBig, utils.marginBottomSmall]}
-                  source={{
-                    uri: user.image,
-                  }}
-                />
-              )}
+
 
               <View
                 style={[
@@ -210,11 +168,12 @@ function Profile(props) {
                         container.container,
                         utils.margin15Right,
                         utils.margin5Bottom,
+                        {backgroundColor:'#0cc0df'}
                       ]}
                       title="Following"
                       onPress={() => onUnfollow()}
                     >
-                      <Text style={[text.bold, text.center, text.green]}>
+                      <Text style={[text.bold, text.center, text.white]}>
                         Following
                       </Text>
                     </TouchableOpacity>
@@ -246,15 +205,15 @@ function Profile(props) {
                     title="Follow"
                     onPress={() => props.navigation.navigate("Chat", { user })}
                   >
-                    <Text style={[text.bold, text.center]}>Message</Text>
+                    <Text style={[text.bold, text.center, text.aquamarine]}>Message</Text>
                   </TouchableOpacity>
                 </View>
               ) : (
                 <TouchableOpacity
-                  style={[utils.buttonOutlined]}
+                  style={[utils.buttonOutlined, {borderColor:'white', backgroundColor:'red'}]}
                   onPress={() => onLogout()}
                 >
-                  <Text style={[text.bold, text.center]}>Cerrar sesion</Text>
+                  <Text style={[text.bold, text.center, text.white]}>Cerrar sesion</Text>
                 </TouchableOpacity>
               )}
             </View>

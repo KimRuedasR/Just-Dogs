@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { container, utils, text } from '../../styles';
+import { FontAwesome5 } from '@expo/vector-icons';
 import {
   View,
   Text,
@@ -58,21 +59,13 @@ export default function Search(props) {
               props.navigation.navigate("Profile", { uid: item.id })
             }
           >
-            {item.image == "default" ? (
               <FontAwesome5
                 style={[utils.profileImage, utils.marginBottomSmall]}
                 name="user-circle"
                 size={50}
                 color="black"
               />
-            ) : (
-              <Image
-                style={[utils.profileImage, utils.marginBottomSmall]}
-                source={{
-                  uri: item.image,
-                }}
-              />
-            )}
+
             <View style={utils.justifyCenter}>
               <Text style={text.username}>{item.username}</Text>
               <Text style={text.name}>{item.name}</Text>

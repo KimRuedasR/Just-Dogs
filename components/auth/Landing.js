@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Button, TouchableOpacity, Image } from "react-native";
+import { Text, View, Button, TouchableOpacity, Image, ImageBackground } from "react-native";
 import { utils, text, container } from '../styles';
 
 
@@ -7,7 +7,8 @@ import { utils, text, container } from '../styles';
 export default function Landing({ navigation }) {
   return (
     // View container
-    <View style={[container.center, {backgroundColor: '#0cc0df'}]}>     
+    <View style={[container.center, {backgroundColor: '#0cc0df'}]}> 
+     <ImageBackground source={require('../../assets/Main_BG.png')} resizeMode="cover" style={utils.img}>  
       <View style={[container.formCenter]}>
       <View style={[container.formCenter, utils.logo]}>
         <Image 
@@ -15,9 +16,12 @@ export default function Landing({ navigation }) {
         style={{width: 250, height: 260}}
         />
       </View>
+      <View>
+      <Text style={[text.center, text.xl, text.bold, text.white]}>Just Dogs</Text>
+      </View>
 
         <TouchableOpacity
-          style={utils.buttonLanding}
+          style={[utils.buttonLanding, {borderWidth:2, borderColor:'#0cc0df'}]}
           title="Registrarse"
           onPress={() => navigation.navigate("Register")}
         >
@@ -32,6 +36,7 @@ export default function Landing({ navigation }) {
           <Text style={[text.bold, text.center, text.large, text.white]}>Iniciar sesion</Text>
         </TouchableOpacity>
       </View>
+      </ImageBackground>  
     </View>
   );
 }

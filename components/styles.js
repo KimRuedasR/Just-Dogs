@@ -104,7 +104,7 @@ const utils = StyleSheet.create({
         padding: 8,
         color: 'white',
         borderWidth: 1,
-        borderColor: 'lightgrey',
+        borderColor: '#0cc0df',
         borderRadius: 8,
         textAlign: 'center',
     },
@@ -130,7 +130,7 @@ const utils = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh'
+
     },
     img: {
         flex: 1,

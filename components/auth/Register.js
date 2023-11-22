@@ -56,7 +56,7 @@ export class Register extends Component {
     <ImageBackground source={require('../../assets/Landing_BG.png')} resizeMode="cover" style={utils.img}>
     <View style={[container.formCenter, container.landingcontainer]}>
     <View style={[container.formCenter, container.landingcontainer]}>
-        <Text style={[text.center, text.xl, text.bold, text.white]}>¡Bienvenido!</Text>
+        <Text style={[text.center, text.xl, text.bold, text.white]}>¡Hola!</Text>
     </View>
             <TextInput
               style={[form.textInput, text.medium]}
