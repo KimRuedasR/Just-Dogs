@@ -56,7 +56,7 @@ export default function Save(props) {
         creation: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(function () {
-        alert("¡Su imagen si pertenece a un perron!");
+        alert("¡Su imagen si pertenece a un perro!");
         props.navigation.popToTop();
       });
   };

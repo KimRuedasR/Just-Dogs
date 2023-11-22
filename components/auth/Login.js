@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { View, Button, TextInput } from "react-native";
+import { View, Button, TextInput, Text, KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import { container, form, text, utils } from '../styles';
 
 // Modules
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+
 
 // Register component class
 export class Login extends Component {
@@ -37,18 +39,35 @@ export class Login extends Component {
   // Login form
   render() {
     return (
-      <View>
-        <TextInput
-          placeholder="Correo"
-          onChangeText={(email) => this.setState({ email })}
-        />
-        <TextInput
-          placeholder="Contraseña"
-          secureTextEntry={true}
-          onChangeText={(password) => this.setState({ password })}
-        />
-        <Button onPress={() => this.onSignUp()} title="Iniciar sesión" />
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={container.container}>
+    <View style={container.center}>
+    <View style={[container.formCenter, container.landingcontainer]}>
+        <Text style={[text.center, text.xl, text.bold]}>Bienvenido!</Text>
+          <TextInput
+              style={form.textInput}
+              placeholder="Correo electronico"
+              onChangeText={(email) => this.setState({ email })}
+          />
+          <TextInput
+              style={form.textInput}
+              placeholder="Contrasenia"
+              secureTextEntry={true}
+              onChangeText={(password) => this.setState({ password })}
+          />
+        <TouchableOpacity
+          
+          style={utils.buttonLanding}
+          title="Iniciar sesión"
+          onPress={() => this.onSignUp()}
+        >
+          <Text style={[text.bold, text.center, text.medium]}>Iniciar sesion</Text>
+        </TouchableOpacity>
       </View>
+  </View>
+  </KeyboardAvoidingView>
+
     );
   }
 }
