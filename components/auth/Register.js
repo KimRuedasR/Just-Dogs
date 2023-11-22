@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Button, TextInput, Text, KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import { View, Button, TextInput, Text, KeyboardAvoidingView, TouchableOpacity, ImageBackground } from "react-native";
 import { container, form, text, utils } from '../styles';
 
 
@@ -48,41 +48,28 @@ export class Register extends Component {
   // Registration form
   render() {
     return (
-      // <View>
-      //   <TextInput
-      //     placeholder="Nombre"
-      //     onChangeText={(name) => this.setState({ name })}
-      //   />
-      //   <TextInput
-      //     placeholder="Correo"
-      //     onChangeText={(email) => this.setState({ email })}
-      //   />
-      //   <TextInput
-      //     placeholder="Contraseña"
-      //     secureTextEntry={true}
-      //     onChangeText={(password) => this.setState({ password })}
-      //   />
-      //   <Button onPress={() => this.onSignUp()} title="Registrarse" />
-      // </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={container.container}
       >
-        <View style={container.center}>
-          <View style={container.formCenter}>
-            <Text style={[text.center, text.xl, text.bold]}>Hola!</Text>
+    <View style={[container.center]}>     
+    <ImageBackground source={require('../../assets/Landing_BG.png')} resizeMode="cover" style={utils.img}>
+    <View style={[container.formCenter, container.landingcontainer]}>
+    <View style={[container.formCenter, container.landingcontainer]}>
+        <Text style={[text.center, text.xl, text.bold, text.white]}>¡Bienvenido!</Text>
+    </View>
             <TextInput
-              style={form.textInput}
+              style={[form.textInput, text.medium]}
               placeholder="Nombre"
               onChangeText={(name) => this.setState({ name })}
             />
             <TextInput
-              style={form.textInput}
+              style={[form.textInput, text.medium]}
               placeholder="Correo"
               onChangeText={(email) => this.setState({ email })}
             />
             <TextInput
-              style={form.textInput}
+              style={[form.textInput, text.medium]}
               placeholder="Contraseña"
               secureTextEntry={true}
               onChangeText={(password) => this.setState({ password })}
@@ -93,11 +80,10 @@ export class Register extends Component {
               title="Iniciar sesión"
               onPress={() => this.onSignUp()}
             >
-              <Text style={[text.bold, text.center, text.medium]}>
-                Registrarse
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={[text.bold, text.center, text.large, text.aquamarine]}>Registrarse</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
         </View>
       </KeyboardAvoidingView>
     );

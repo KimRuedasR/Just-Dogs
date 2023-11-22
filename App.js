@@ -91,7 +91,7 @@ export class App extends Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
             {/*  Main screen */}
-            <Stack.Screen name="Main" component={MainScreen} />
+            <Stack.Screen name=" " component={MainScreen} />
             {/* Add/camera screen */}
             <Stack.Screen
               name="Add"
