@@ -1,6 +1,6 @@
 {
   "name": "Just Dogs",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Mobile platform and social netowrk dedicated to dog enthusiasts for sharing and appreciating humanity's best friend.",
   "scripts": {
     "start": "expo start",
