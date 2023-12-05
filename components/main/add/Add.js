@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
+  TouchableOpacity,
   Image,
   ActivityIndicator,
 } from "react-native";
@@ -11,7 +11,8 @@ import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
-import { container, utils } from "../../styles";
+import { container, utils, text } from "../../styles";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function Add({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -114,7 +115,7 @@ export default function Add({ navigation }) {
   // Rendering the loading screen while analyzing the image
   if (isAnalyzing) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={styles.centeredView}>
         <ActivityIndicator size="large" />
         <Text>Analizando imagen...</Text>
       </View>
@@ -125,14 +126,13 @@ export default function Add({ navigation }) {
   if (hasPermission === null) {
     return <View />;
   }
+
   if (hasPermission === false) {
     return <Text>No hay acceso a la cámara o galería</Text>;
   }
 
   return (
-    <View
-      style={{ flex: 1, flexDirection: "column", backgroundColor: "white" }}
-    >
+    <View style={styles.mainContainer}>
       <View style={styles.cameraContainer}>
         <Camera
           ref={(ref) => setCamera(ref)}
@@ -141,36 +141,100 @@ export default function Add({ navigation }) {
           ratio={"1:1"}
         />
       </View>
-      <Button
-        title="Girar Imagen"
-        onPress={() =>
-          setType(
-            type === Camera.Constants.Type.back
-              ? Camera.Constants.Type.front
-              : Camera.Constants.Type.back
-          )
-        }
-      />
-      <Button title="Tomar Foto" onPress={takePicture} />
-      <Button title="Elegir Imagen de Galería" onPress={pickImage} />
-      <Button
-        title="Utilizar imagen"
-        onPress={() => image && handleImageSelection(image)}
-      />
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.flipButton}
+          onPress={() =>
+            setType(
+              type === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+            )
+          }
+        >
+          <FontAwesome name="refresh" size={24} color="white" />
+          <Text style={styles.buttonText}>Girar cámara</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={styles.button} onPress={takePicture}>
+          <FontAwesome name="camera" size={24} color="white" />
+          <Text style={styles.buttonText}>Tomar Foto</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={pickImage}>
+          <FontAwesome name="image" size={24} color="white" />
+          <Text style={styles.buttonText}>Elegir de Galería</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.useImageButton}
+          onPress={() => image && handleImageSelection(image)}
+        >
+          <FontAwesome name="check" size={24} color="white" />
+          <Text style={styles.buttonText}>Utilizar imagen</Text>
+        </TouchableOpacity>
+      </View>
+      {image && <Image source={{ uri: image }} style={styles.previewImage} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "white",
+  },
   cameraContainer: {
     flex: 1,
     flexDirection: "row",
+    borderColor: "#0cc0df", // Blue border for camera
+    borderWidth: 2, // Border width
   },
   fixedRatio: {
     flex: 1,
     aspectRatio: 1,
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#0cc0df",
+    padding: 10,
+    borderRadius: 5,
+  },
+  flipButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f0ad4e", // Different color for flip button
+    padding: 10,
+    borderRadius: 5,
+  },
+  useImageButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#5cb85c", // Different color for use image button
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: "white",
+    marginLeft: 5,
+  },
+  previewImage: {
+    width: 200,
+    height: 200,
+    alignSelf: "center",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
