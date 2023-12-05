@@ -1,6 +1,6 @@
 {
   "name": "Just Dogs",
-  "version": "2.1.0",
+  "version": "2.2.1",
   "description": "Mobile platform and social netowrk dedicated to dog enthusiasts for sharing and appreciating humanity's best friend.",
   "scripts": {
     "start": "expo start",
@@ -31,11 +31,12 @@
   "homepage": "https://github.com/KimRuedasR/Just-Dogs#readme",
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@google-cloud/vision": "^4.0.2",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/material-bottom-tabs": "^6.2.19",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
-    "expo": "^49.0.18",
+    "expo": "^49.0.20",
     "expo-av": "~13.4.1",
     "expo-camera": "~13.4.4",
     "expo-font": "~11.4.0",

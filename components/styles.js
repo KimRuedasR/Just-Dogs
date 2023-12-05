@@ -104,27 +104,39 @@ const utils = StyleSheet.create({
         padding: 8,
         color: 'white',
         borderWidth: 1,
-        borderColor: 'lightgrey',
+        borderColor: '#0cc0df',
         borderRadius: 8,
         textAlign: 'center',
     },
     buttonLanding: {
-        height:50,
-        marginBottom:10,
-        marginTop: 15,
+        height:60,
+        marginBottom:2,
+        marginTop: 30,
         padding: 8,
         color: 'white',
-        borderWidth: 1,
-        borderColor: 'grey',
-        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'white',
+        borderRadius: 12,
         textAlign: 'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        backgroundColor:'white',
     },
 
     fixedRatio: {
         flex: 1,
         aspectRatio: 1
+    },
+    logo: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+    img: {
+        flex: 1,
+        justifyContent: 'center',
     }
+    
 })
 const navbar = StyleSheet.create({
 
@@ -239,10 +251,10 @@ const container = StyleSheet.create({
 const form = StyleSheet.create({
     textInput: {
         marginBottom: 10,
-        borderColor: 'gray',
-        backgroundColor: 'whitesmoke',
+        borderColor: '#0cc0df',
+        backgroundColor: 'white',
         padding: 10,
-        borderWidth: 1,
+        borderWidth: 2,
         borderRadius: 8
     },
     bottomButton: {
@@ -300,7 +312,7 @@ const text = StyleSheet.create({
         fontSize: 10//'large'
     },
     medium: {
-        fontSize: 15, //'large'
+        fontSize: 17, //'large'
     },
     grey: {
         color: 'grey'
@@ -313,6 +325,9 @@ const text = StyleSheet.create({
     },
     whitesmoke: {
         color: 'whitesmoke'
+    },
+    aquamarine: {
+        color: '#0cc0df'
     }
 
 })

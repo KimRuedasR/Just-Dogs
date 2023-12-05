@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Button, TextInput, Text, KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import { View, Button, TextInput, Text, KeyboardAvoidingView, TouchableOpacity, ImageBackground } from "react-native";
 import { container, form, text, utils } from '../styles';
 
 // Modules
@@ -42,17 +42,21 @@ export class Login extends Component {
       <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={container.container}>
-    <View style={container.center}>
+    
+    <View style={[container.center]}>     
+    <ImageBackground source={require('../../assets/Landing_BG.png')} resizeMode="cover" style={utils.img}>
     <View style={[container.formCenter, container.landingcontainer]}>
-        <Text style={[text.center, text.xl, text.bold]}>Bienvenido!</Text>
+    <View style={[container.formCenter, container.landingcontainer]}>
+        <Text style={[text.center, text.xl, text.bold, text.white]}>¡Bienvenido!</Text>
+    </View>
           <TextInput
-              style={form.textInput}
+              style={[form.textInput, text.medium]}
               placeholder="Correo electronico"
               onChangeText={(email) => this.setState({ email })}
           />
           <TextInput
-              style={form.textInput}
-              placeholder="Contrasenia"
+              style={[form.textInput, text.medium]}
+              placeholder="Contraseña"
               secureTextEntry={true}
               onChangeText={(password) => this.setState({ password })}
           />
@@ -62,9 +66,11 @@ export class Login extends Component {
           title="Iniciar sesión"
           onPress={() => this.onSignUp()}
         >
-          <Text style={[text.bold, text.center, text.medium]}>Iniciar sesion</Text>
+          <Text style={[text.bold, text.center, text.large, text.aquamarine]}>Iniciar sesion</Text>
         </TouchableOpacity>
       </View>
+    </ImageBackground>
+
   </View>
   </KeyboardAvoidingView>
 

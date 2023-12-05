@@ -1,46 +1,12 @@
 import React, { useState } from "react";
 import { View, TextInput, Image, Button, Alert } from "react-native";
-
-
-import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 
 export default function Save(props) {
   const [caption, setCaption] = useState("");
-
-  // Function to upload the image to Firebase Storage
-  const uploadImage = async () => {
-    const uri = props.route.params.image;
-
-    // Unique random path for each image
-    const childPath = `post/${
-      firebase.auth().currentUser.uid
-    }/${Math.random().toString(36)}`;
-    console.log(childPath);
-
-    const response = await fetch(uri);
-    const blob = await response.blob();
-
-    const task = firebase.storage().ref().child(childPath).put(blob);
-
-    // Handle progress, succes and errors of image uploading
-    const taskProgress = (snapshot) => {
-      console.log(`transferred: ${snapshot.bytesTransferred}`);
-    };
-    const taskCompleted = () => {
-      task.snapshot.ref.getDownloadURL().then((snapshot) => {
-        savePostData(snapshot);
-        console.log(snapshot);
-      });
-    };
-    const taskError = (snapshot) => {
-      console.log(snapshot);
-    };
-
-    task.on("state_changed", taskProgress, taskError, taskCompleted);
-  };
+  const { image, imagePath } = props.route.params;
 
   // Function to save post data to Firestore
   const savePostData = (downloadURL) => {
@@ -55,24 +21,30 @@ export default function Save(props) {
         likesCount: 0,
         creation: firebase.firestore.FieldValue.serverTimestamp(),
       })
-      .then(function () {
-        alert("¡Su imagen si pertenece a un perro!");
+      .then(() => {
+        alert("¡Imagen confirmada como perro y publicada!");
         props.navigation.popToTop();
+      })
+      .catch((error) => {
+        console.log(error);
+        // Delete the image if there's an error saving the post
+        firebase.storage().ref().child(imagePath).delete();
+        Alert.alert(
+          "Error",
+          "No se pudo publicar la imagen. Intente de nuevo."
+        );
       });
   };
 
-  
-
   return (
     <View style={{ flex: 1 }}>
-      <Image source={{ uri: props.route.params.image }} />
+      <Image source={{ uri: image }} />
       <TextInput
-        placeholder="Añade una descripción. . ."
+        placeholder="Añade una descripción..."
         onChangeText={(caption) => setCaption(caption)}
-        
+        style={{ margin: 10, padding: 5, borderWidth: 1, borderColor: "gray" }}
       />
-
-      <Button title="Guardar" onPress={() => uploadImage()} />
+      <Button title="Publicar" onPress={() => savePostData(image)} />
     </View>
   );
 }
