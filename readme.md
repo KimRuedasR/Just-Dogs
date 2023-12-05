@@ -72,26 +72,26 @@ npx expo start
 
 The Just Dogs app is in active development. Current features include:
 
-    - Google Cloud Vision API Integration: For advanced dog recognition in images.
-    - Redesigned UI: A fresh and user-friendly interface.
-    - Authentication System: Basic screens for user registration and login using Firebase.
-    - Firebase Integration: For authentication and data storage.
-    - Navigation: Basic navigation and a bottom tab bar.
-    - Redux Integration: For scalable and predictable state management.
-    - Camera Functionality: Users can take and upload pictures.
-    - Image Posting and Saving: Upload images and save to Firestore.
-    - Profile Display: User profile and image post layout.
-    - Search: Search functionality for users and their posts.
-    - Feed: Display posts from followed users.
-    - Comments: Add and display comments on posts.
-    - Like/Dislike Functionality: Users can like or dislike posts.
+- Authentication System: Basic screens for user registration and login using Firebase.
+- Firebase Integration: For authentication and data storage.
+- Navigation: Basic navigation and a bottom tab bar.
+- Redux Integration: For scalable and predictable state management.
+- Camera Functionality: Users can take and upload pictures.
+- Google Cloud Vision API Integration: For advanced dog recognition in images.
+- Image Posting and Saving: Upload images and save to Firestore.
+- Profile Display: User profile and image post layout.
+- Search: Search functionality for users and their posts.
+- Feed: Display posts from followed users.
+- Comments: Add and display comments on posts.
+- Like/Dislike Functionality: Users can like or dislike posts.
+- Redesigned UI: A fresh and user-friendly interface.
 
 Upcoming Features
 
-    - Machine Learning Model: Implementing a custom made dog recognition ML image classificator.
-    - Notifications: Adding push notifications for likes, comments, and follows.
-    - Chat Functionality: Enabling direct messaging between users.
-    - UI/UX improvements and new redesign!
+- Machine Learning Model: Implementing a custom made dog recognition ML image classificator.
+- Notifications: Adding push notifications for likes, comments, and follows.
+- Chat Functionality: Enabling direct messaging between users.
+- UI/UX improvements and new redesign!
 
 The project is actively being developed, with upcoming features and enhancements planned to create a comprehensive platform for dog lovers. Contributions and suggestions are welcome to make Just Dogs a delightful experience for its users.estions are welcome to make Just Dogs a delightful experience for its users.
 
