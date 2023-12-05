@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Button, TouchableOpacity } from "react-native";
-import { FontAwesome5 } from '@expo/vector-icons';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  FlatList,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { container, utils, text } from '../../styles';
-import { ScrollView } from 'react-native-gesture-handler';
+import { container, utils, text } from "../../styles";
+import { ScrollView } from "react-native-gesture-handler";
 require("firebase/compat/firestore");
 require("firebase/firestore");
-import CachedImage from '../../misc/CachedImage';
+import CachedImage from "../../misc/CachedImage";
 
 function Profile(props) {
   const [userPosts, setUserPosts] = useState([]);
@@ -97,13 +105,12 @@ function Profile(props) {
         <>
           <View style={[container.profileInfo]}>
             <View style={[utils.noPadding, container.row]}>
-                <FontAwesome5
-                  style={[utils.profileImageBig, utils.marginBottomSmall]}
-                  name="user-circle"
-                  size={80}
-                  color="black"
-                />
-
+              <FontAwesome
+                style={[utils.profileImageBig, utils.marginBottomSmall]}
+                name="user-circle"
+                size={60}
+                color="#0cc0df"
+              />
 
               <View
                 style={[
@@ -168,7 +175,7 @@ function Profile(props) {
                         container.container,
                         utils.margin15Right,
                         utils.margin5Bottom,
-                        {backgroundColor:'#0cc0df'}
+                        { backgroundColor: "#0cc0df" },
                       ]}
                       title="Following"
                       onPress={() => onUnfollow()}
@@ -205,15 +212,22 @@ function Profile(props) {
                     title="Follow"
                     onPress={() => props.navigation.navigate("Chat", { user })}
                   >
-                    <Text style={[text.bold, text.center, text.aquamarine]}>Message</Text>
+                    <Text style={[text.bold, text.center, text.aquamarine]}>
+                      Message
+                    </Text>
                   </TouchableOpacity>
                 </View>
               ) : (
                 <TouchableOpacity
-                  style={[utils.buttonOutlined, {borderColor:'white', backgroundColor:'red'}]}
+                  style={[
+                    utils.buttonOutlined,
+                    { borderColor: "white", backgroundColor: "red" },
+                  ]}
                   onPress={() => onLogout()}
                 >
-                  <Text style={[text.bold, text.center, text.white]}>Cerrar sesion</Text>
+                  <Text style={[text.bold, text.center, text.white]}>
+                    Cerrar sesion
+                  </Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -267,7 +281,7 @@ function Profile(props) {
 //     aspectRatio: 1 / 1,
 //   },
 // });
-      
+
 const mapStateToProps = (store) => ({
   currentUser: store.userState.currentUser,
   posts: store.userState.posts,

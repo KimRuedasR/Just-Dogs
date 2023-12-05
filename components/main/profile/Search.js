@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { container, utils, text } from '../../styles';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { container, utils, text } from "../../styles";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   View,
   Text,
   TextInput,
   FlatList,
   TouchableOpacity,
-  Image
+  Image,
 } from "react-native";
 
 import firebase from "firebase/compat/app";
@@ -59,12 +59,12 @@ export default function Search(props) {
               props.navigation.navigate("Profile", { uid: item.id })
             }
           >
-              <FontAwesome5
-                style={[utils.profileImage, utils.marginBottomSmall]}
-                name="user-circle"
-                size={50}
-                color="black"
-              />
+            <FontAwesome
+              style={[utils.profileImage, utils.marginBottomSmall]}
+              name="user-circle"
+              size={40}
+              color="#0cc0df"
+            />
 
             <View style={utils.justifyCenter}>
               <Text style={text.username}>{item.username}</Text>
